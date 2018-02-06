@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Notificação</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function(){
+        if(Notification.permission !== 'granted')
+          Notification.requestPermission();
+      });
+
+      function notifyMe(icon, title, mensagem, link){
+        if(!Notification){
+          alert('O navegador que você esta utilizando não possui suporte a notificação!');
+          return;
+        }
+
+        if(Notification.permission !== "granted"){
+          Notification.requestPermission();
+        }else{
+          var notification = new Notification(title, {
+            icon: icon,
+            body: mensagem
+          });
+          notification.onclick = function(){
+            window.open(link);
+          };
+        }
+      }
+
+      var icon = 'https://douglasgusson.github.io/assets/img/pitanga.svg';
+      var title = 'Como instalar pacotes de linguagem do LibreOffice no Fedora';
+      var mensagem = 'Veja nesse post como instalar um pacote de linguagem do LibreOffice no Fedora. Para buscar pelos pacotes disponíveis, execute: $ sudo dnf search libreoffice-langpack O resultado desse comando será algo...';
+      var link = 'https://douglasgusson.github.io/como-instalar-langpack-do-libreoficce-no-fedora/';
+      notifyMe(icon, title, mensagem, link);
+    </script>
+  </body>
+</html>
